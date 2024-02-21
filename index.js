@@ -16,13 +16,13 @@ try {
 
 async function getLatestCommitSha(owner, repo, token) {
     const octokit = github.getOctokit(token);
-    const { data: commit } = await octokit.rest.repos.getCommit({
+    const commit = await octokit.rest.repos.getCommit({
       owner: owner,
       repo: repo,
       ref: `refs/heads/main`
     });
   
-    return commit.data.sha;
+    return commit.sha;
   }
 
 async function createNewBranchIfNotExists(owner, repo, branchName, commitSHA, token){
