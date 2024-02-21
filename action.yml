@@ -1,0 +1,19 @@
+# Create a new Branch PR on remote repository
+name: 'Create Branch On Remote'
+description: 'Creating a branch on remote repository'
+inputs:
+  owner:  # id of input
+    description: 'repo owner'
+    required: true
+  branch-name:  # id of input
+    description: 'branch name to create'
+    required: true
+  repo:  # id of input
+    description: 'repository'
+    required: true
+runs:
+    using: 'node20'
+    main: 'dist/index.js'
+    
+    
+
