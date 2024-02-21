@@ -16,6 +16,10 @@ Creating new branch is a remote repository (in the same org)
 
 **Reuired** The name of therepository
 
+### `token`
+
+**Reuired** GitHub token
+
 ## Example usage
 
 ```yaml
@@ -24,4 +28,5 @@ with:
   owner: 'loudstil'
   branch-name: 'newbranch'
   repo: 'test'
+  token: ${{ secrets.GITHUB_TOKEN }}
 ```
