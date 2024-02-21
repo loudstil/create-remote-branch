@@ -32,7 +32,7 @@ async function createNewBranchIfNotExists(owner, repo, branchName, commitSHA, to
         await octokit.rest.git.getRef({
           owner: owner,
           repo: repo,
-          ref: 'refs/heads/${branchName}'
+          ref: "refs/heads/${branchName}"
         });
 
         console.log(`Branch "${branchName}" already exists.`);
@@ -40,10 +40,11 @@ async function createNewBranchIfNotExists(owner, repo, branchName, commitSHA, to
       } catch (error) {
         // If the branch doesn't exist, create it
         if (error.status === 404) {
+          console.log(`Creating Branch "${branchName}".`);
           await octokit.rest.git.createRef({
             owner: owner,
             repo: repo,
-            ref: `refs/heads/${branchName}`,
+            ref: "refs/heads/${branchName}",
             sha: commitSHA
           });
           console.log(`Branch "${branchName}" created successfully.`);
