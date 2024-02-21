@@ -1,12 +1,11 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
-
 try {
     const owner = core.getInput('owner');
     const repo = core.getInput('repo');
     const branchName =  core.getInput('branch-name');
+    const token = core.getInput('token');
 
     const commitSHA = getLatestCommitSha(owner, repo);
     createNewBranchIfNotExists(owner, repo, branchName, commitSHA);
@@ -15,7 +14,8 @@ try {
   core.setFailed(error.message);
 }
 
-async function getLatestCommitSha(owner, repo) {
+async function getLatestCommitSha(owner, repo, token) {
+    const octokit = github.getOctokit(token);
     const { data: commit } = await octokit.rest.repos.getCommit({
       owner: owner,
       repo: repo,
@@ -25,13 +25,14 @@ async function getLatestCommitSha(owner, repo) {
     return commit.data.sha;
   }
 
-async function createNewBranchIfNotExists(owner, repo, branchName, commitSHA){
+async function createNewBranchIfNotExists(owner, repo, branchName, commitSHA, token){
+    const octokit = github.getOctokit(token);
     try {
         // Check if the branch already exists
-        await github.git.getRef({
+        await octokit.rest.repos.getBranch({
           owner: owner,
           repo: repo,
-          ref: `heads/${branch}`
+          ref: `heads/${branchName}`
         });
         
         console.log(`Branch "${branchName}" already exists.`);
@@ -39,7 +40,7 @@ async function createNewBranchIfNotExists(owner, repo, branchName, commitSHA){
       } catch (error) {
         // If the branch doesn't exist, create it
         if (error.status === 404) {
-          await github.git.createRef({
+          await octokit.rest.git.createRef({
             owner: owner,
             repo: repo,
             ref: `refs/heads/${branchName}`,
