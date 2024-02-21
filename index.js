@@ -26,6 +26,7 @@ async function getLatestCommitSha(owner, repo, token) {
   }
 
 async function createNewBranchIfNotExists(owner, repo, branchName, commitSHA, token){
+    console.log(owner, repo, branchName, commitSHA);
     const octokit = github.getOctokit(token);
     try {
         // Check if the branch already exists
