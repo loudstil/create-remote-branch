@@ -7,8 +7,8 @@ try {
     const branchName =  core.getInput('branch-name');
     const token = core.getInput('token');
 
-    const commitSHA = getLatestCommitSha(owner, repo);
-    createNewBranchIfNotExists(owner, repo, branchName, commitSHA);
+    const commitSHA = getLatestCommitSha(owner, repo, token);
+    createNewBranchIfNotExists(owner, repo, branchName, commitSHA,token);
     
 } catch (error) {
   core.setFailed(error.message);
