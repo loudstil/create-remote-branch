@@ -29,12 +29,11 @@ async function createNewBranchIfNotExists(owner, repo, branchName, commitSHA, to
     const octokit = github.getOctokit(token);
     try {
         // Check if the branch already exists
-        const branch = await octokit.rest.repos.getBranch({
+        await octokit.rest.git.getRef({
           owner: owner,
           repo: repo,
-          branch: branchName
+          ref: 'refs/heads/${branchName}'
         });
-        console.log(branch);
 
         console.log(`Branch "${branchName}" already exists.`);
         
