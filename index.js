@@ -32,7 +32,7 @@ async function createNewBranchIfNotExists(owner, repo, branchName, commitSHA, to
         const branch = await octokit.rest.repos.getBranch({
           owner: owner,
           repo: repo,
-          ref: `heads/${branchName}`
+          branch: branchName
         });
         console.log(branch);
 
