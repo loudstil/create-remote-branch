@@ -11,6 +11,9 @@ inputs:
   repo:  # id of input
     description: 'repository'
     required: true
+  token:  # id of input
+    description: 'github token'
+    required: true
 runs:
     using: 'node20'
     main: 'index.js'
