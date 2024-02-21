@@ -7,7 +7,7 @@ try {
     const branchName =  core.getInput('branch-name');
     const token = core.getInput('token');
 
-    const commitSHA = getLatestCommitSha(owner, repo, token);
+    const commitSHA = await getLatestCommitSha(owner, repo, token);
     createNewBranchIfNotExists(owner, repo, branchName, commitSHA,token);
     
 } catch (error) {
